@@ -20,6 +20,17 @@ const char pass[] = WIFI_PASSWORD;
 static struct altcp_tls_config *tls_config = NULL;
 
 
+class Box {
+    public:
+        Box() {
+            printf("Constructor called!\n");
+        }
+        ~Box() {
+            printf("Destructor called!\n");
+        }
+};
+
+
 typedef struct TLS_CLIENT_T_ {
     struct altcp_pcb *pcb;
     bool complete;
@@ -28,7 +39,7 @@ typedef struct TLS_CLIENT_T_ {
 
 // Perform initialisation
 static TLS_CLIENT_T* tls_client_init(void) {
-    TLS_CLIENT_T *state = calloc(1, sizeof(TLS_CLIENT_T));
+    TLS_CLIENT_T *state = new TLS_CLIENT_T();
     if (!state) {
         printf("failed to allocate state\n");
         return NULL;
@@ -165,7 +176,7 @@ static bool tls_client_open(const char *hostname, void *arg) {
     altcp_err(state->pcb, tls_client_err);
 
     /* Set SNI */
-    mbedtls_ssl_set_hostname(altcp_tls_context(state->pcb), hostname);
+    mbedtls_ssl_set_hostname((mbedtls_ssl_context *) altcp_tls_context(state->pcb), hostname);
 
     printf("resolving %s\n", hostname);
 
@@ -228,6 +239,8 @@ int main() {
         return 1;
     }
     printf("connected\n");
+
+    Box box = Box();
 
     run_tls_client_test();
 }

@@ -29,7 +29,7 @@ add_definitions(-DPICO_BOARD="pico_w")
 
 
 add_executable(postbot
-    main.c
+    main.cpp
 )
 
 pico_enable_stdio_usb(postbot 1)
