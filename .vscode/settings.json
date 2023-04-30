@@ -18,4 +18,5 @@
     "cSpell.words": [
         "ssid"
     ],
+    "C_Cpp.errorSquiggles": "enabled",
 }

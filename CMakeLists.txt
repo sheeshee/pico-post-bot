@@ -39,4 +39,17 @@ pico_add_extra_outputs(postbot)
 
 target_include_directories(postbot PRIVATE ${CMAKE_CURRENT_LIST_DIR} )
 
-target_link_libraries(postbot pico_cyw43_arch_lwip_threadsafe_background pico_stdlib)
+target_link_libraries(postbot
+    pico_cyw43_arch_lwip_threadsafe_background
+    pico_lwip_mbedtls
+    pico_mbedtls
+    pico_stdlib
+    )
+
+
+# Ignore warnings from lwip code
+set_source_files_properties(
+        ${PICO_LWIP_PATH}/src/apps/altcp_tls/altcp_tls_mbedtls.c
+        PROPERTIES
+        COMPILE_OPTIONS "-Wno-unused-result"
+        )
