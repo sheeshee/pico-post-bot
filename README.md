@@ -10,6 +10,7 @@ $ cd build
 $ export PICO_SDK_PATH=../../pico-sdk
 $ export PICO_SSID="Your Wifi Network Name"
 $ export PICO_SSID_PASSWORD="Some Password"
+$ export PICO_IFTTT_KEY="Some IFTTT key"
 $ cmake ..
 $ make
 ```

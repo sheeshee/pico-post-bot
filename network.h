@@ -9,9 +9,9 @@
 #include "lwip/dns.h"
 
 
-#define TLS_CLIENT_SERVER        "worldtimeapi.org"
+#define TLS_CLIENT_SERVER        "maker.ifttt.com"
 #define TLS_CLIENT_TIMEOUT_SECS  15
-#define TLS_CLIENT_HTTP_REQUEST  "GET /api/ip HTTP/1.1\r\n" \
+#define TLS_CLIENT_HTTP_REQUEST  "GET /trigger/post_detected/json/with/key/" IFTTT_KEY " HTTP/1.1\r\n" \
                                  "Host: " TLS_CLIENT_SERVER "\r\n" \
                                  "Connection: close\r\n" \
                                  "\r\n"

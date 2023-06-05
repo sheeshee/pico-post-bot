@@ -5,27 +5,27 @@ include(pico_sdk_import.cmake)
 project(pico-post-bot C CXX ASM)
 set(CMAKE_C_STANDARD 11)
 set(CMAKE_CXX_STANDARD 17)
+
 pico_sdk_init()
 
-
-set(PICO_SSID $ENV{PICO_SSID})
-set(PICO_SSID_PASSWORD $ENV{PICO_SSID_PASSWORD})
-
-if (DEFINED PICO_SSID)
-    add_definitions(-DWIFI_SSID="${PICO_SSID}")
-    message(STATUS "PICO_SSID is set to ${PICO_SSID}")
-else ()
-    message(STATUS "PICO_SSID is not set")
+if (DEFINED ENV{PICO_SSID} AND (NOT WIFI_SSID))
+    set(WIFI_SSID $ENV{PICO_SSID})
+    message("WIFI_SSID is set from environment to ${WIFI_SSID}")
 endif ()
 
-if (DEFINED PICO_SSID_PASSWORD)
-    add_definitions(-DWIFI_PASSWORD="${PICO_SSID_PASSWORD}")
-    message(STATUS "PICO_SSID_PASSWORD is set to ${PICO_SSID_PASSWORD}")
-else ()
-    message(STATUS "PICO_SSID_PASSWORD is not set")
+if (DEFINED ENV{PICO_SSID_PASSWORD} AND (NOT WIFI_PASSWORD))
+    set(WIFI_PASSWORD $ENV{PICO_SSID_PASSWORD})
+    message("WIFI_PASSWORD is set from environment")
 endif ()
 
-add_definitions(-DPICO_BOARD="pico_w")
+if (DEFINED ENV{PICO_IFTTT_KEY} AND (NOT IFTTT_KEY))
+    set(IFTTT_KEY $ENV{PICO_IFTTT_KEY})
+    message("IFTTT_KEY is set from environment")
+endif ()
+
+set(WIFI_SSID "${WIFI_SSID}" CACHE INTERNAL "WiFi SSID for examples")
+set(WIFI_PASSWORD "${WIFI_PASSWORD}" CACHE INTERNAL "WiFi password for examples")
+set(IFTTT_KEY "${IFTTT_KEY}" CACHE INTERNAL "IFTTT key for examples")
 
 
 add_executable(postbot
@@ -47,6 +47,13 @@ target_link_libraries(postbot
     pico_lwip_mbedtls
     pico_mbedtls
     pico_stdlib
+    )
+
+target_compile_definitions(postbot PRIVATE
+    PICO_BOARD="pico_w"
+    WIFI_SSID=\"${WIFI_SSID}\"
+    WIFI_PASSWORD=\"${WIFI_PASSWORD}\"
+    IFTTT_KEY=\"${IFTTT_KEY}\"
     )
 
 
