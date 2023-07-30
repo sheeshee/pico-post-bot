@@ -1,6 +1,7 @@
 cmake_minimum_required(VERSION 3.13)
 
 include(pico_sdk_import.cmake)
+include(pico_extras_import.cmake)
 
 project(pico-post-bot C CXX ASM)
 set(CMAKE_C_STANDARD 11)
@@ -33,7 +34,7 @@ add_executable(postbot
 )
 
 pico_enable_stdio_usb(postbot 1)
-pico_enable_stdio_uart(postbot 1)
+pico_enable_stdio_uart(postbot 0)
 
 pico_add_extra_outputs(postbot)
 
@@ -47,6 +48,7 @@ target_link_libraries(postbot
     pico_lwip_mbedtls
     pico_mbedtls
     pico_stdlib
+    hardware_sleep
     )
 
 target_compile_definitions(postbot PRIVATE

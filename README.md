@@ -8,6 +8,7 @@ A simple PicoW-powered device that notifies me when I have post
 $ mkdir build
 $ cd build
 $ export PICO_SDK_PATH=../../pico-sdk
+$ export PICO_EXTRAS_PATH
 $ export PICO_SSID="Your Wifi Network Name"
 $ export PICO_SSID_PASSWORD="Some Password"
 $ export PICO_IFTTT_KEY="Some IFTTT key"
